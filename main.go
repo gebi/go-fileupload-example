@@ -57,7 +57,7 @@ func main() {
 		"author":      "Matt Aimonetti",
 		"description": "A document with all the Go programming language secrets",
 	}
-	request, err := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+	request, err := newfileUploadRequest("http://localhost:8080", extraParams, "file", "test.pdf")
 	if err != nil {
 		log.Fatal(err)
 	}
