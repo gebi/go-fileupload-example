@@ -11,7 +11,7 @@ import (
 )
 
 // Streams upload directly from file -> mime/multipart -> pipe -> http-request
-func asyncUploadFile(params map[string]string, paramName, path string, w *io.PipeWriter, file *os.File) {
+func streamingUploadFile(params map[string]string, paramName, path string, w *io.PipeWriter, file *os.File) {
 	defer file.Close()
 	defer w.Close()
 	writer := multipart.NewWriter(w)
@@ -45,7 +45,7 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 	}
 
 	r, w := io.Pipe()
-	go asyncUploadFile(params, paramName, path, w, file)
+	go streamingUploadFile(params, paramName, path, w, file)
 	return http.NewRequest("POST", uri, r)
 }
 
