@@ -66,14 +66,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		body := &bytes.Buffer{}
-		_, err := body.ReadFrom(resp.Body)
+		fmt.Println(resp.StatusCode)
+		fmt.Println(resp.Header)
+		_, err := io.Copy(os.Stdout, resp.Body)
 		if err != nil {
 			log.Fatal(err)
 		}
 		resp.Body.Close()
-		fmt.Println(resp.StatusCode)
-		fmt.Println(resp.Header)
-		fmt.Println(body)
 	}
 }
